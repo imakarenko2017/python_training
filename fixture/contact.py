@@ -18,6 +18,9 @@ class ContactHelper:
         except:
             return False
 
+    def count(self):
+        wd=self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))
 
     def open_contact_form(self):
         wd=self.app.wd
@@ -35,16 +38,21 @@ class ContactHelper:
 
     def modify_first_contact(self, new_contact_data):
         wd=self.app.wd
+        self.open_contacts_page()
         wd.find_element_by_xpath("//img[@title='Edit']").click()
         self.fill_contact_form(new_contact_data)
         self.submit_contact_form()
 
-    def delete(self, firstname,lastname):
+    def open_contacts_page(self):
         wd=self.app.wd
-        if not self.is_exist(firstname,lastname):
-            print ("Contact" + firstname + " " + lastname + " " + "not found")
-            return
-        wd.find_element_by_xpath("//input[@name='selected[]'][@type='checkbox'][@title='Select (" + firstname + " " + lastname + ")']").click()
+        if wd.current_url.endswith("edit.php"):
+            wd.find_element_by_link_text("home").click()
+
+    def delete_first_contact(self):
+        wd=self.app.wd
+        self.open_contacts_page()
+        wd.find_element_by_xpath("//input[@name='selected[]'][@type='checkbox']").click()
+        #wd.find_element_by_xpath("//input[@name='selected[]'][@type='checkbox'][@title='Select (" + firstname + " " + lastname + ")']").click()
         wd.find_element_by_xpath("//input[@type='button'][@value='Delete']").click()
         wd.switch_to_alert().accept()
 
@@ -72,7 +80,7 @@ class ContactHelper:
 
     def submit_contact_form(self):
         wd = self.app.wd
-        if wd.current_url.find("/edit.php?id="):
+        if wd.current_url.find("/edit.php?id=")>=0:
             wd.find_element_by_xpath("//input[@name='update'][@value='Update']").click()
         else:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
