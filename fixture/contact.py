@@ -85,6 +85,7 @@ class ContactHelper:
         else:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
 
+
     def open_contact_form(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
