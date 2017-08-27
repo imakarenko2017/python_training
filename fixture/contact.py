@@ -1,3 +1,4 @@
+from selenium.common.exceptions import NoSuchElementException
 
 class ContactHelper:
 
@@ -24,7 +25,9 @@ class ContactHelper:
 
     def open_contact_form(self):
         wd=self.app.wd
-        wd.find_element_by_name("add new").click()
+        if not wd.current_url.endswith('/edit.php'):
+            wd.find_element_by_xpath("//a[text()='add new']").click()
+
 
     def change_field_value(self, field_name, text):
         wd=self.app.wd
@@ -86,7 +89,4 @@ class ContactHelper:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
 
 
-    def open_contact_form(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("add new").click()
 
