@@ -1,4 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
+from model.contact import Contact
 
 class ContactHelper:
 
@@ -88,5 +89,15 @@ class ContactHelper:
         else:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
 
-
+    def get_contacts_list(self):
+        wd = self.app.wd
+        self.open_contacts_page()
+        contacts = []
+        for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
+            cells = element.find_elements_by_tag_name("td")
+            firstname=cells[1].text
+            lastname=cells[2].text
+            contact_id=element.find_element_by_tag_name("input").get_attribute("id")
+            contacts.append(Contact(firstname=cells[1],lastname=cells[2],id=contact_id))
+        return contacts
 
