@@ -98,6 +98,6 @@ class ContactHelper:
             firstname=cells[1].text
             lastname=cells[2].text
             contact_id=element.find_element_by_tag_name("input").get_attribute("id")
-            contacts.append(Contact(firstname=cells[1],lastname=cells[2],id=contact_id))
+            contacts.append(Contact(firstname=firstname,lastname=lastname,id=contact_id))
         return contacts
 
