@@ -49,7 +49,8 @@ class ContactHelper:
 
     def open_contacts_page(self):
         wd=self.app.wd
-        if wd.current_url.endswith("edit.php"):
+        #if wd.current_url.endswith("edit.php") or wd.current_url != "http://localhost/addressbook/":
+        if not wd.current_url.endswith("/addressbook/"):
             wd.find_element_by_link_text("home").click()
 
     def delete_first_contact(self):
