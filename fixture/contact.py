@@ -11,6 +11,7 @@ class ContactHelper:
         self.open_contact_form()
         self.fill_contact_form(contact)
         self.submit_contact_form()
+        self.open_contacts_page()
 
     def is_exist(self,firstname,lastname):
         wd = self.app.wd
@@ -90,15 +91,18 @@ class ContactHelper:
         else:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
 
+    contact_cache = None
+
     def get_contacts_list(self):
-        wd = self.app.wd
-        self.open_contacts_page()
-        contacts = []
-        for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
-            cells = element.find_elements_by_tag_name("td")
-            firstname=cells[1].text
-            lastname=cells[2].text
-            contact_id=element.find_element_by_tag_name("input").get_attribute("id")
-            contacts.append(Contact(firstname=firstname,lastname=lastname,id=contact_id))
-        return contacts
+        if self.contact_cache is None:
+            wd = self.app.wd
+            self.open_contacts_page()
+            self.contact_cache = []
+            for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
+                cells = element.find_elements_by_tag_name("td")
+                firstname=cells[1].text
+                lastname=cells[2].text
+                contact_id=element.find_element_by_tag_name("input").get_attribute("id")
+                self.contact_cache.append(Contact(firstname=firstname,lastname=lastname,id=contact_id))
+        return list(self.contact_cache)
 
