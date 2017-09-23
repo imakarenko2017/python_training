@@ -30,7 +30,6 @@ class ContactHelper:
         if not wd.current_url.endswith('/edit.php'):
             wd.find_element_by_xpath("//a[text()='add new']").click()
 
-
     def change_field_value(self, field_name, text):
         wd=self.app.wd
         if text is not None:
@@ -62,9 +61,6 @@ class ContactHelper:
         wd.find_element_by_xpath("//input[@type='button'][@value='Delete']").click()
         wd.switch_to_alert().accept()
 
-
-
-
     def fill_contact_form(self, contact):
         wd=self.app.wd
         # fill contact form
@@ -82,7 +78,6 @@ class ContactHelper:
         self.change_field_value("byear", contact.birthyear)
         self.change_field_value("bday", contact.birthday)
         self.change_field_value("notes", contact.notes)
-
 
     def submit_contact_form(self):
         wd = self.app.wd

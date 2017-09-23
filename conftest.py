@@ -1,9 +1,9 @@
 import pytest
 from fixture.application import Application
 
-fixture=None
+fixture = None
 
-@pytest.fixture
+@pytest.fixture (scope="session",  autouse=True)
 def app(request):
     global fixture
     if fixture is  None:
