@@ -1,17 +1,16 @@
 from model.group import Group
 from random import randrange
 
+
 def test_delete_first_group(app):
-    app.session.login()
+    if app.group.count() == 0:
+        app.group.create(Group(name="group_to_delete",header="header",footer="footer"))
     app.group.delete_group_by_index(0)
-    app.session.logout()
-
-
 
 
 def test_delete_some_group(app):
-    if app.group.count()==0:
-        app.group.create(Group(name="test",header="hh"))
+    if app.group.count() == 0:
+        app.group.create(Group(name="test", header="hh"))
     old_groups = app.group.get_group_list()
     index = randrange(len(old_groups))
     app.group.delete_group_by_index(index)

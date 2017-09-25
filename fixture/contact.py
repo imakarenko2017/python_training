@@ -11,7 +11,6 @@ class ContactHelper:
         self.open_contact_form()
         self.fill_contact_form(contact)
         self.submit_contact_form()
-        self.open_contacts_page()
 
     def is_exist(self,firstname,lastname):
         wd = self.app.wd
@@ -81,11 +80,11 @@ class ContactHelper:
 
     def submit_contact_form(self):
         wd = self.app.wd
-        if wd.current_url.find("/edit.php?id=")>=0:
+        if 'id=' in wd.current_url:
             wd.find_element_by_xpath("//input[@name='update'][@value='Update']").click()
         else:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
-
+        wd.find_element_by_link_text("home").click()
     contact_cache = None
 
     def get_contacts_list(self):
