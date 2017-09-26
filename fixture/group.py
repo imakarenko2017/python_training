@@ -36,7 +36,7 @@ class GroupHelper:
     def modify(self, group):
         wd=self.app.wd
         self.open_groups_page()
-        self.select_first_group()
+        self.select_group_by_index(0)
         wd.find_element_by_name("edit").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").send_keys(group.name)
