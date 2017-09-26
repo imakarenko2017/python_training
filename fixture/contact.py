@@ -11,6 +11,8 @@ class ContactHelper:
         self.open_contact_form()
         self.fill_contact_form(contact)
         self.submit_contact_form()
+        self.contact_cache = None
+
 
     def is_exist(self,firstname,lastname):
         wd = self.app.wd
@@ -39,12 +41,14 @@ class ContactHelper:
             else:
                 wd.find_element_by_xpath("//select[@name='" + field_name + "']/option[@value='" +text + "']").click()
 
+
     def modify_first_contact(self, new_contact_data):
         wd=self.app.wd
         self.open_contacts_page()
         wd.find_element_by_xpath("//img[@title='Edit']").click()
         self.fill_contact_form(new_contact_data)
         self.submit_contact_form()
+        self.contact_cache = None
 
     def open_contacts_page(self):
         wd=self.app.wd
@@ -59,6 +63,7 @@ class ContactHelper:
         #wd.find_element_by_xpath("//input[@name='selected[]'][@type='checkbox'][@title='Select (" + firstname + " " + lastname + ")']").click()
         wd.find_element_by_xpath("//input[@type='button'][@value='Delete']").click()
         wd.switch_to_alert().accept()
+        self.contact_cache = None
 
     def fill_contact_form(self, contact):
         wd=self.app.wd
@@ -85,6 +90,8 @@ class ContactHelper:
         else:
             wd.find_element_by_xpath("//input[@name='submit'][@value='Enter']").click()
         wd.find_element_by_link_text("home").click()
+
+
     contact_cache = None
 
     def get_contacts_list(self):
