@@ -80,7 +80,6 @@ class ContactHelper:
         self.change_field_value("bday", contact.birthday)
         self.change_field_value("bmonth", contact.birthmonth)
         self.change_field_value("byear", contact.birthyear)
-        self.change_field_value("bday", contact.birthday)
         self.change_field_value("notes", contact.notes)
 
     def submit_contact_form(self):
