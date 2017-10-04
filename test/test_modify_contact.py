@@ -4,8 +4,8 @@ from model.contact import Contact
 
 def test_modify_first_contact(app):
     if app.contact.count() == 0:
-        app.contact.create(Contact(firstname="Inna",middlename="I",lastname="Makarenko",birthday="3",birthmonth="March",birthyear="1980",email="inna.makarenko@gmail.com"))
-    contact=Contact(firstname="Inna",lastname="Makarenko")
+        app.contact.create(Contact(firstname="Alexey",middlename="I",lastname="Pavlov",birthday="3",birthmonth="March",birthyear="1980",email="inna.makarenko@gmail.com"))
+    contact=Contact(firstname="Alexey",lastname="Pavlov")
     old_contacts = app.contact.get_contacts_list()
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
