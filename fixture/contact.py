@@ -74,6 +74,15 @@ class ContactHelper:
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
+    def delete_contact_by_index(self,index):
+        wd=self.app.wd
+        self.open_contacts_page()
+        contacts=wd.find_elements_by_xpath("//input[@name='selected[]'][@type='checkbox']")
+        contacts[index].click()
+        wd.find_element_by_xpath("//input[@type='button'][@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.contact_cache = None
+
     def fill_contact_form(self, contact):
         wd=self.app.wd
         # fill contact form
