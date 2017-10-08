@@ -50,6 +50,15 @@ class ContactHelper:
         self.submit_contact_form()
         self.contact_cache = None
 
+    def modify_contact_by_index(self, index, new_contact_data):
+        wd=self.app.wd
+        self.open_contacts_page()
+        element = wd.find_elements_by_xpath("//img[@title='Edit']")
+        element[index].click()
+        self.fill_contact_form(new_contact_data)
+        self.submit_contact_form()
+        self.contact_cache = None
+
     def open_contacts_page(self):
         wd=self.app.wd
         #if wd.current_url.endswith("edit.php") or wd.current_url != "http://localhost/addressbook/":
