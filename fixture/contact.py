@@ -123,12 +123,13 @@ class ContactHelper:
                 lastname=cells[1].text
                 all_phones=cells[5].text
                 address = cells[3].text
-                emails = cells[4].text.splitlines()
-                email = emails[0]
-                email2 = emails[1]
+                #emails = cells[4].text.splitlines()
+                #email = emails[0]
+                #email2 = emails[1]
+                all_emails=cells[4].text
                 homepage = cells[9].find_element_by_tag_name("a").get_attribute("href")
                 contact_id=element.find_element_by_tag_name("input").get_attribute("id")
-                self.contact_cache.append(Contact(id=contact_id,firstname=firstname,lastname=lastname,all_phones_from_home_page=all_phones,address=address,email=email,email2=email2,homepage=homepage))
+                self.contact_cache.append(Contact(id=contact_id,firstname=firstname,lastname=lastname,all_phones_from_home_page=all_phones,all_emails_from_home_page=all_emails,address=address,homepage=homepage))
         return list(self.contact_cache)
 
     def open_contact_to_edit_by_index(self, index):
