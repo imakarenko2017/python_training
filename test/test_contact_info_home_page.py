@@ -8,7 +8,7 @@ def test_contact_info_home_page(app):
     #compare phones
     assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
     #compare emails
-    contact_from_edit_page.all_emails = "\n".join([contact_from_edit_page.email,contact_from_edit_page.email2])
+    contact_from_edit_page.all_emails = "\n".join(filter(lambda x: x != "",[contact_from_edit_page.email,contact_from_edit_page.email2,contact_from_edit_page.email3]))
     assert contact_from_edit_page.all_emails == contact_from_home_page.all_emails_from_home_page
     #compare address
     assert contact_from_home_page.address ==contact_from_edit_page.address

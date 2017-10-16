@@ -11,15 +11,16 @@ def random_string(maxlen):
 def random_email(maxlen):
     symbols = string.ascii_letters+string.digits
     return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]) + "@mail.ru"
-def random_homepage():
+
+def random_homepage(maxlen):
     symbols = string.ascii_letters+string.digits
-    return "http://" + "".join(random.choice(symbols)+ "." + "com")
+    return "http://" + "".join([random.choice(symbols) for i in range(random.randrange(maxlen)])+ ".com")
 
 
 testdata = [Contact(firstname="", lastname="", middlename="")]+ [
     Contact(firstname=random_string(10), lastname=random_string(10),
             middlename=random_string(5), company=random_string(10),
-            email=random_email(6),email2=random_email(7),homepage= random_homepage())
+            email=random_email(6),email2=random_email(7),email3=random_email(7),homepage= random_homepage(6))
     for i in range(5)
 ]
 
