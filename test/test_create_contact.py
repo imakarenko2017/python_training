@@ -1,9 +1,31 @@
 # -*- coding: utf-8 -*-
 from model.contact import Contact
+import pytest
+import random
+import string
 
-def test_create_contact(app):
+def random_string(maxlen):
+    symbols = string.ascii_letters+string.digits
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
+
+def random_email(maxlen):
+    symbols = string.ascii_letters+string.digits
+    return "".join([random.choice(symbols) for i in range(random.randrange(maxlen))]) + "@mail.ru"
+def random_homepage():
+    symbols = string.ascii_letters+string.digits
+    return "http://" + "".join(random.choice(symbols)+ "." + "com")
+
+
+testdata = [Contact(firstname="", lastname="", middlename="")]+ [
+    Contact(firstname=random_string(10), lastname=random_string(10),
+            middlename=random_string(5), company=random_string(10),
+            email=random_email(6),email2=random_email(7),homepage= random_homepage())
+    for i in range(5)
+]
+
+@pytest.mark.parametrize("contact", testdata, ids=[repr(x) for x in testdata])
+def test_create_contact(app,contact):
     old_contacts = app.contact.get_contacts_list()
-    contact=Contact(firstname="Anna",middlename="I",lastname="Petrova",title="Ms",nickname="Petrova",company="Coca-Cola",address="Alton Pl",cellphone="",workphone="",email="",email2="",email3="",homepage="",anniversary="",birthday="1",birthmonth="January",birthyear="1980",homephone2="",address2="",homephone="123123123",notes="test contact")
     app.contact.create(contact)
     new_contacts=app.contact.get_contacts_list()
     assert len(new_contacts) == len(old_contacts)+1

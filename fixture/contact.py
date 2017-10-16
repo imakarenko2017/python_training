@@ -96,6 +96,8 @@ class ContactHelper:
         self.change_field_value("address", contact.address)
         self.change_field_value("home", contact.homephone)
         self.change_field_value("email", contact.email)
+        self.change_field_value("homepage", contact.homepage)
+        self.change_field_value("email2", contact.email2)
         self.change_field_value("bday", contact.birthday)
         self.change_field_value("bmonth", contact.birthmonth)
         self.change_field_value("byear", contact.birthyear)
@@ -127,7 +129,10 @@ class ContactHelper:
                 #email = emails[0]
                 #email2 = emails[1]
                 all_emails=cells[4].text
-                homepage = cells[9].find_element_by_tag_name("a").get_attribute("href")
+                try :
+                    homepage=cells[9].find_element_by_tag_name("a").get_attribute("href")
+                except NoSuchElementException:
+                    homepage=None
                 contact_id=element.find_element_by_tag_name("input").get_attribute("id")
                 self.contact_cache.append(Contact(id=contact_id,firstname=firstname,lastname=lastname,all_phones_from_home_page=all_phones,all_emails_from_home_page=all_emails,address=address,homepage=homepage))
         return list(self.contact_cache)
